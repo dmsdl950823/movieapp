@@ -16,8 +16,14 @@ class App extends Component {
 
     // _ :: 자체 함수와 개발자가 만든 함수와 다름을 표시하고자 함
     _renderMovies = () => {
-        const movies = this.state.movies.map((movie) => {
-            return <Movie title={movie.title} poster={movie.large_cover_image} key={movie.id} />
+        const movies = this.state.movies.map((movie) => { // index사용시 느려짐..
+            console.log(movie)
+            return (<Movie
+                    title={movie.title_english}
+                    poster={movie.medium_cover_image}
+                    key={movie.id}
+                    genres={movie.genres}
+                    sysnopsis={movie.synopsis}/> )
         });
         return movies;
     };

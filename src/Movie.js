@@ -37,26 +37,49 @@ import './Movie.css';
 // dumb comp에 사용할 수 있는 함수 - class component를 사용하지 않고도 사용할 수 있는것
 // 라이프사이클 X, function render도 없음
 // functional component사용시 import react Component할 필요 없음..
-function Movie({title, poster}){
+function Movie({title, poster, genres, sysnopsis}){
     return(
-        <div>
-            <MoviePoster poster={poster}/>
-            <h1>{title}</h1>  {/*movie title="..."*/}
+        <div className="Movie">
+            <div className="Movie__Columns">
+                <MoviePoster poster={poster} alt={title}/>
+            </div>
+            <div className="Movie__Columns">
+                <h1>{title}</h1>  {/*movie title="..."*/}
+                <div className="Movie__Genres">
+                    {genres.map((genre, index) => <MovieGenre genre={genre} key={index}/>)}
+                </div>
+                <p className="Movie__Synopsis">
+                    {sysnopsis}
+                </p>
+            </div>
         </div>
     )
 }
 
-function MoviePoster({poster}){  // MoviePoster class와 완전히 동일함
-    return <img src={poster} alt="movie poster"/>
+function MoviePoster({poster, alt}){  // MoviePoster class와 완전히 동일함
+    return <img src={poster} alt={alt} className="Movie__Poster"/>
 }
 
-MoviePoster.propTypes = {
-    poster: PropTypes.string.isRequired
-};
+function MovieGenre({genre}){
+    return (
+        <span className="Movie_Genre">{genre}</span>
+    )
+}
 
 Movie.prototype = {
     title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
+    poster: PropTypes.string.isRequired,
+    genres: PropTypes.string.isRequired,
+    sysnopsis: PropTypes.string.isRequired
 };
+
+MoviePoster.propTypes = {
+    poster: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired
+};
+
+MovieGenre.propTypes = {
+    genre: PropTypes.string.isRequired
+}
 
 export default Movie;
